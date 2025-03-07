@@ -5,7 +5,8 @@
 Install the Python package using `pip`:
 
 ```sh
-pip install bluenumbers
+# pip install bluenumbers  # TODO: Publish to PyPI
+pip install git+https://github.com/Microwave-WYB/bluenumbers.git
 ```
 
 Using the package is very simple:
