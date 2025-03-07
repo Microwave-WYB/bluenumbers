@@ -1,7 +1,7 @@
 [project]
 name = "bluenumbers"
 version = "0.1.0"
-description = "Add your description here"
+description = "Easily access Bluetooth SIG Assigned Numbers"
 readme = "README.md"
 authors = [{ name = "Yibo Wei", email = "david_wyb2001@outlook.com" }]
 requires-python = ">=3.9"
