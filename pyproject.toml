@@ -1,6 +1,6 @@
 [project]
 name = "bluenumbers"
-version = "0.1.0"
+version = "0.1.1"
 description = "Easily access Bluetooth SIG Assigned Numbers"
 readme = "README.md"
 authors = [{ name = "Yibo Wei", email = "david_wyb2001@outlook.com" }]
@@ -9,6 +9,7 @@ dependencies = []
 
 [project.scripts]
 bluenumbers = "bluenumbers:main"
+bluenumbers-install = "bluenumbers.install_script:main"
 
 [build-system]
 requires = ["hatchling"]

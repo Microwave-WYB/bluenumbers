@@ -2,6 +2,12 @@
 
 ## Usage
 
+Ensure you have all of the required dependencies:
+
+-   Python 3.9+
+-   Git (for updating the data source)
+-   Internet connection for the first time you import the package (This is when the data is downloaded)
+
 Install the Python package using `pip`:
 
 ```sh
@@ -26,3 +32,17 @@ This will output:
 {'value': 76, 'name': 'Apple, Inc.'}
 {'value': 9, 'name': 'Complete Local Name', 'reference': 'Core Specification Supplement, Part A, Section 1.2'}
 ```
+
+Note that on your first import of the package, the data will be downloaded using Git. This may take a while depending on your internet connection.
+
+### Updating the Data Source
+
+This package uses the data from the [Bluetooth SIG Public Repository](https://bitbucket.org/bluetooth-SIG/public/) to provide the assigned number information. On your first import of this package, the data will automatically be downloaded and stored in the package directory. To update the data, you can use the `update` function:
+
+```python
+import bluenumbers
+
+bluenumbers.update()
+```
+
+This will run `git pull` in the package directory to update the data.
