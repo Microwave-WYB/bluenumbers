@@ -7,7 +7,7 @@ class CompanyIdentifier(TypedDict):
     name: str
 
 
-class AdType(TypedDict):
+class AdTypeInfo(TypedDict):
     value: int
     name: str
     reference: str

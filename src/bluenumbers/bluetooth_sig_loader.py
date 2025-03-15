@@ -6,7 +6,7 @@ from uuid import UUID
 
 import yaml
 
-from bluenumbers.models import AdType, AssignedUUID, CompanyIdentifier
+from bluenumbers.models import AdTypeInfo, AssignedUUID, CompanyIdentifier
 
 REPO_URL: Final[str] = "https://bitbucket.org/bluetooth-SIG/public.git"
 
@@ -14,6 +14,7 @@ BLUETOOTH_SIG_UUID_BASE: Final[UUID] = UUID("00000000-0000-1000-8000-00805F9B34F
 
 
 def get_full_uuid(short_uuid: int) -> UUID:
+    """Get the full 128-bit UUID from a 16-bit UUID."""
     base_bytes = BLUETOOTH_SIG_UUID_BASE.bytes
     short_bytes = short_uuid.to_bytes(2, "little")
     return UUID(bytes=base_bytes[:12] + short_bytes + base_bytes[14:])
@@ -136,7 +137,7 @@ def get_uuids() -> dict[int, AssignedUUID]:
     return result
 
 
-def get_ad_types() -> dict[int, AdType]:
+def get_ad_types() -> dict[int, AdTypeInfo]:
     """Get advertisement types directly from the cloned repository."""
     repo_dir = get_repo_dir()
     ad_types_file = repo_dir / "assigned_numbers" / "core" / "ad_types.yaml"
@@ -144,9 +145,9 @@ def get_ad_types() -> dict[int, AdType]:
         ensure_repo_exists()
 
     ad_type_list = yaml.safe_load(ad_types_file.read_text())["ad_types"]
-    return {t["value"]: AdType(**t) for t in ad_type_list}
+    return {t["value"]: AdTypeInfo(**t) for t in ad_type_list}
 
 
-ad_types: dict[int, AdType] = get_ad_types()
+ad_types: dict[int, AdTypeInfo] = get_ad_types()
 company_identifiers: dict[int, CompanyIdentifier] = get_company_identifiers()
 uuids: dict[int, AssignedUUID] = get_uuids()

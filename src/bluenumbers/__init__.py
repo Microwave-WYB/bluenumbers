@@ -1,7 +1,8 @@
 import logging
 
 from bluenumbers.bluetooth_sig_loader import ad_types, company_identifiers, update, uuids
-from bluenumbers.models import AdType, AssignedUUID, CompanyIdentifier
+from bluenumbers.models import AdTypeInfo, AssignedUUID, CompanyIdentifier
+from bluenumbers.parser import AdPacket, AdStruct, AdType
 
 logging.basicConfig(level=logging.INFO)
 
@@ -31,6 +32,9 @@ __all__ = [
     "uuids",
     "AssignedUUID",
     "CompanyIdentifier",
-    "AdType",
+    "AdTypeInfo",
     "update",
+    "AdStruct",
+    "AdPacket",
+    "AdType",
 ]
