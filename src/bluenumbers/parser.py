@@ -278,7 +278,7 @@ class AdPacket(BaseModel):
             if not length:
                 return
 
-            ad_type = AdType(data[1])
+            ad_type = data[1]
             value = data[2 : length + 1]
             yield AdStruct(length=length, ad_type=ad_type, value=value)
             yield from iterate_ad_structures(data[length + 1 :])
