@@ -200,6 +200,9 @@ type DecodedAdValue = Flags | list[str] | ServiceData | ManufacturerData | str
 
 
 def decode_ad_struct(ad_type: AdType | int, value: bytes) -> DecodedAdValue | None:
+    if ad_type not in AdType:
+        return None
+    ad_type = AdType(ad_type)
     match ad_type:
         case AdType.FLAGS:
             return decode_flags(value)
