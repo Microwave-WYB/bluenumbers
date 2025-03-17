@@ -88,10 +88,11 @@ def update() -> bool:
     updated = before_hash != after_hash
 
     if updated:
-        global ad_types, company_identifiers, uuids
+        global ad_types, company_identifiers, uuids, full_uuids
         ad_types = get_ad_types()
         company_identifiers = get_company_identifiers()
         uuids = get_uuids()
+        full_uuids = {uuid["full_uuid"]: uuid for uuid in uuids.values()}
         logging.info(f"Repository updated in {repo_dir}")
     else:
         logging.debug(f"Repository already up-to-date in {repo_dir}")
@@ -151,4 +152,4 @@ def get_ad_types() -> dict[int, AdTypeInfo]:
 ad_types: dict[int, AdTypeInfo] = get_ad_types()
 company_identifiers: dict[int, CompanyIdentifier] = get_company_identifiers()
 uuids: dict[int, AssignedUUID] = get_uuids()
-full_uuids: dict[UUID, AssignedUUID] = {uuid["full_uuid"]: uuid for uuid in uuids.values()}
+full_uuids: dict[UUID, AssignedUUID] = {uuid["full_uuid"]: uuid for uuid in get_uuids().values()}
