@@ -1,6 +1,6 @@
 [project]
 name = "bluenumbers"
-version = "0.1.5"
+version = "0.1.6"
 description = "Easily access Bluetooth SIG Assigned Numbers"
 readme = "README.md"
 authors = [{ name = "Yibo Wei", email = "david_wyb2001@outlook.com" }]
