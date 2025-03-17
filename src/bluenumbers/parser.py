@@ -320,7 +320,7 @@ class AdPacket(BaseModel):
 
     @property
     def name(self) -> str | None:
-        name_struct = self.get(AdType.COMPLETE_LOCAL_NAME)
+        name_struct = self.get(AdType.COMPLETE_LOCAL_NAME) or self.get(AdType.SHORTENED_LOCAL_NAME)
         if not name_struct:
             return None
         return cast(str, name_struct.decoded)
