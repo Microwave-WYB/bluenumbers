@@ -151,3 +151,4 @@ def get_ad_types() -> dict[int, AdTypeInfo]:
 ad_types: dict[int, AdTypeInfo] = get_ad_types()
 company_identifiers: dict[int, CompanyIdentifier] = get_company_identifiers()
 uuids: dict[int, AssignedUUID] = get_uuids()
+full_uuids: dict[UUID, AssignedUUID] = {uuid["full_uuid"]: uuid for uuid in uuids.values()}
