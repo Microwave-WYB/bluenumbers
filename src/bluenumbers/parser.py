@@ -240,9 +240,10 @@ class AdStruct(BaseModel):
 
     @computed_field
     def ad_type_name(self) -> str | None:
-        if isinstance(self.ad_type, AdType):
-            return self.ad_type.name
-        return None
+        try:
+            return AdType(self.ad_type).name
+        except ValueError:
+            return None
 
     @field_serializer("value")
     def serialize_value(self, value: bytes) -> str:
