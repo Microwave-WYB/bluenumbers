@@ -1,6 +1,6 @@
 [project]
 name = "bluenumbers"
-version = "0.1.8"
+version = "0.1.9"
 description = "Easily access Bluetooth SIG Assigned Numbers"
 readme = "README.md"
 authors = [{ name = "Yibo Wei", email = "david_wyb2001@outlook.com" }]
@@ -16,8 +16,4 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.uv]
-dev-dependencies = [
-    "pyright>=1.1.396",
-    "pytest>=8.3.5",
-    "ruff>=0.11.0",
-]
+dev-dependencies = ["pyright>=1.1.396", "pytest>=8.3.5", "ruff>=0.11.0"]
