@@ -154,12 +154,12 @@ def decode_service_data(
     value: bytes,
 ) -> ServiceData:
     uuid_length = {
-        AdType.SERVICE_DATA_16_BIT_UUID: 2,
-        AdType.SERVICE_DATA_32_BIT_UUID: 4,
-        AdType.SERVICE_DATA_128_BIT_UUID: 16,
+        AdType.SERVICE_DATA_16_BIT_UUID: 16,
+        AdType.SERVICE_DATA_32_BIT_UUID: 32,
+        AdType.SERVICE_DATA_128_BIT_UUID: 128,
     }[ad_type]
-    uuid = UUID(int=int.from_bytes(value[:uuid_length], "little"))
-    data = value[uuid_length:]
+    uuid = get_full_uuid(int.from_bytes(value[: uuid_length // 8], "little"), uuid_length)
+    data = value[uuid_length // 8 :]
     return ServiceData(uuid=str(uuid), data=data)
 
 
