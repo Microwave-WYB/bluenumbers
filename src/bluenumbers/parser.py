@@ -136,13 +136,9 @@ class ServiceData(BaseModel):
 
     @field_validator("data", mode="before")
     def validate_data(cls, data: bytes | str) -> bytes:
-        match data:
-            case str(v):
-                return base64.b64decode(v)
-            case bytes(v):
-                return v
-            case _:
-                raise ValidationError("data must be a string or bytes")
+        if isinstance(data, str):
+            return base64.b64decode(data)
+        return data
 
 
 def decode_service_data(
@@ -177,13 +173,9 @@ class ManufacturerData(BaseModel):
 
     @field_validator("data", mode="before")
     def validate_data(cls, data: bytes | str) -> bytes:
-        match data:
-            case str(v):
-                return base64.b64decode(v)
-            case bytes(v):
-                return v
-            case _:
-                raise ValidationError("data must be a string or bytes")
+        if isinstance(data, str):
+            return base64.b64decode(data)
+        return data
 
 
 def decode_manufacturer_data(value: bytes) -> ManufacturerData:
@@ -254,13 +246,9 @@ class AdStruct(BaseModel):
 
     @field_validator("value", mode="before")
     def validate_value(cls, value: bytes | str) -> bytes:
-        match value:
-            case str(v):
-                return base64.b64decode(v)
-            case bytes(v):
-                return v
-            case _:
-                raise ValidationError("value must be a string or bytes")
+        if isinstance(value, str):
+            return base64.b64decode(value)
+        return value
 
     def __bytes__(self) -> bytes:
         return bytes([self.length, self.ad_type]) + self.value
@@ -271,23 +259,19 @@ class AdPacket(BaseModel):
 
     @classmethod
     def from_bytes(cls, data: bytes) -> "AdPacket":
-        def iterate_ad_structures(data: bytes) -> Iterator["AdStruct"]:
-            """
-            Parse the first advertisement structure from the given data.
-            """
-            if not data:
-                return
-
-            length = data[0]
-            if not length:
-                return
-
-            ad_type = data[1]
-            value = data[2 : length + 1]
-            yield AdStruct(length=length, ad_type=ad_type, value=value)
-            yield from iterate_ad_structures(data[length + 1 :])
-
-        return cls(ad_structs=list(iterate_ad_structures(data)))
+        ad_structs: list[AdStruct] = []
+        i = 0
+        while i < len(data):
+            length = data[i]
+            if length == 0:
+                break
+            if i + length + 1 > len(data):
+                break
+            ad_type = data[i + 1]
+            value = data[i + 2 : i + length + 1]
+            ad_structs.append(AdStruct(length=length, ad_type=ad_type, value=value))
+            i += length + 1
+        return cls(ad_structs=ad_structs)
 
     @property
     def uuids(self) -> list[UUID]:
