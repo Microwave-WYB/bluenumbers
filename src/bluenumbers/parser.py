@@ -177,6 +177,9 @@ class ManufacturerData(BaseModel):
             return base64.b64decode(data)
         return data
 
+    def __bytes__(self) -> bytes:
+        return self.company_identifier.to_bytes(2, "little") + self.data
+
 
 def decode_manufacturer_data(value: bytes) -> ManufacturerData:
     company_identifier = int.from_bytes(value[:2], "little")
