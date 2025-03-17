@@ -226,7 +226,7 @@ def decode_ad_struct(ad_type: AdType | int, value: bytes) -> DecodedAdValue | No
             return decode_service_data(ad_type, value)
         case AdType.MANUFACTURER_SPECIFIC_DATA:
             return decode_manufacturer_data(value)
-        case AdType.SHORTENED_LOCAL_NAME, AdType.COMPLETE_LOCAL_NAME, AdType.URI:
+        case AdType.SHORTENED_LOCAL_NAME | AdType.COMPLETE_LOCAL_NAME | AdType.URI:
             return decode_str(value)
         case _:
             return None
