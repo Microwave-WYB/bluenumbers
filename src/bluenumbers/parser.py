@@ -188,7 +188,7 @@ def decode_manufacturer_data(value: bytes) -> ManufacturerData:
 
 
 def decode_str(value: bytes) -> str:
-    return value.decode("utf-8")
+    return value.strip(b"\x00").decode("utf-8")
 
 
 type DecodedAdValue = Flags | list[str] | ServiceData | ManufacturerData | str
